@@ -3,8 +3,9 @@ import { loginFn, checkAuth } from "@/lib/auth";
 import { useState } from "react";
 
 export const Route = createFileRoute("/admin")({
-  beforeLoad: () => {
-    if (checkAuth()) {
+  beforeLoad: async () => {
+    const result = await checkAuth();
+    if (result.authenticated) {
       throw redirect({ to: "/admin/dashboard" });
     }
   },

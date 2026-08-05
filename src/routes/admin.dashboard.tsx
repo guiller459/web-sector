@@ -5,8 +5,9 @@ import { updateContenidoFn } from "@/lib/server";
 import { useState } from "react";
 
 export const Route = createFileRoute("/admin/dashboard")({
-  beforeLoad: () => {
-    if (!checkAuth()) {
+  beforeLoad: async () => {
+    const result = await checkAuth();
+    if (!result.authenticated) {
       throw redirect({ to: "/admin" });
     }
   },
