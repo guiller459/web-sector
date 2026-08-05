@@ -208,9 +208,9 @@ const faqs = [
 function Home() {
   const { heroData } = Route.useLoaderData();
 
-  const eyebrow = heroData?.eyebrow || "Silla · Valencia · Desde la primera visita";
-  const titulo = heroData?.titulo || "Reformas integrales con plazos que se cumplen";
-  const texto = heroData?.texto || "Somos Sector Reformas y Proyectos, empresa de reformas de viviendas, baños y cocinas en Silla. Coordinamos todos los gremios y te acompañamos de principio a fin.";
+  const eyebrow = heroData?.datos?.eyebrow || "Silla · Valencia · Desde la primera visita";
+  const titulo = heroData?.datos?.titulo || "Reformas integrales con plazos que se cumplen";
+  const texto = heroData?.datos?.texto || "Somos Sector Reformas y Proyectos, empresa de reformas de viviendas, baños y cocinas en Silla. Coordinamos todos los gremios y te acompañamos de principio a fin.";
 
   return (
     <div className="min-h-screen bg-background">
