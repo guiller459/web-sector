@@ -1,11 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getCookie, setCookie } from "@tanstack/react-start/server";
 
 export const loginFn = createServerFn({ method: "POST" })
   .validator((data: { password: string }) => data)
-  .handler(async ({ data, context }) => {
+  .handler(async ({ data }) => {
     if (data.password === process.env.ADMIN_PASSWORD) {
-      context.cookie.admin_session.set({
-        value: "authenticated",
+      setCookie("admin_session", "authenticated", {
         httpOnly: true,
         secure: true,
         sameSite: "lax",
@@ -16,9 +16,8 @@ export const loginFn = createServerFn({ method: "POST" })
     return { success: false, error: "Contraseña incorrecta" };
   });
 
-export const logoutFn = createServerFn({ method: "POST" }).handler(async ({ context }) => {
-  context.cookie.admin_session.set({
-    value: "",
+export const logoutFn = createServerFn({ method: "POST" }).handler(async () => {
+  setCookie("admin_session", "", {
     httpOnly: true,
     secure: true,
     sameSite: "lax",
@@ -27,7 +26,7 @@ export const logoutFn = createServerFn({ method: "POST" }).handler(async ({ cont
   return { success: true };
 });
 
-export const checkAuth = createServerFn({ method: "GET" }).handler(async ({ context }) => {
-  const session = context.cookie.admin_session.get();
+export const checkAuth = createServerFn({ method: "GET" }).handler(async () => {
+  const session = getCookie("admin_session");
   return { authenticated: session === "authenticated" };
 });
