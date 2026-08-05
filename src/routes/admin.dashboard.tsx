@@ -13,11 +13,11 @@ export const Route = createFileRoute("/admin/dashboard")({
   },
   loader: async () => {
     const contents = await Promise.all([
-      getContenido("hero"),
-      getContenido("servicios"),
-      getContenido("proceso"),
-      getContenido("opiniones"),
-      getContenido("faqs"),
+      getContenido({ data: "hero" }),
+      getContenido({ data: "servicios" }),
+      getContenido({ data: "proceso" }),
+      getContenido({ data: "opiniones" }),
+      getContenido({ data: "faqs" }),
     ]);
 
     return {
