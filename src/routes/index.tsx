@@ -80,137 +80,140 @@ export const Route = createFileRoute("/")({
   }),
   loader: async () => {
     const heroData = await getContenido("hero");
-    console.log("heroData:", heroData);
-    return { heroData };
+    const serviciosData = await getContenido("servicios");
+    const procesoData = await getContenido("proceso");
+    const opinionesData = await getContenido("opiniones");
+    const faqsData = await getContenido("faqs");
+    return { heroData, serviciosData, procesoData, opinionesData, faqsData };
   },
   component: Home,
 });
 
-const servicios = [
-  {
-    icon: Blocks,
-    title: "Reformas integrales",
-    text: "Viviendas, pisos, chalets y casas. Proyecto llave en mano con todos los gremios coordinados.",
-  },
-  {
-    icon: Bath,
-    title: "Reformas de baños",
-    text: "Cambio de bañera por plato de ducha, alicatados, sanitarios, mamparas y mobiliario.",
-  },
-  {
-    icon: ChefHat,
-    title: "Reformas de cocinas",
-    text: "Diseño a medida, mobiliario, encimeras, fontanería y electricidad renovadas.",
-  },
-  {
-    icon: Hammer,
-    title: "Albañilería",
-    text: "Tabiques, enlucidos, suelos y alicatados con acabados limpios y bien rematados.",
-  },
-  {
-    icon: Droplets,
-    title: "Fontanería",
-    text: "Instalaciones, reparaciones y renovación completa de tuberías.",
-  },
-  {
-    icon: Plug,
-    title: "Electricidad",
-    text: "Renovación de instalación, cuadros eléctricos e iluminación LED.",
-  },
-  {
-    icon: Paintbrush,
-    title: "Pintura y suelos",
-    text: "Pintura interior y exterior, porcelánico, laminado y vinílico.",
-  },
-  {
-    icon: PanelsTopLeft,
-    title: "Carpintería",
-    text: "Puertas, armarios a medida y muebles de cocina.",
-  },
-];
-
-const proceso = [
-  {
-    n: "01",
-    title: "Visita sin compromiso",
-    text: "Vamos a tu vivienda o local, tomamos medidas y escuchamos qué necesitas.",
-  },
-  {
-    n: "02",
-    title: "Presupuesto detallado",
-    text: "Partidas claras, materiales concretos y plazos por escrito. Sin sorpresas.",
-  },
-  {
-    n: "03",
-    title: "Planificación y permisos",
-    text: "Organizamos gremios y nos encargamos de la gestión de licencias necesarias.",
-  },
-  {
-    n: "04",
-    title: "Ejecución de la obra",
-    text: "Un responsable de obra y comunicación constante sobre el avance.",
-  },
-  {
-    n: "05",
-    title: "Entrega y garantía",
-    text: "Repaso final contigo, limpieza de obra y garantía sobre el trabajo realizado.",
-  },
-];
-
-const opiniones = [
-  {
-    nombre: "Alberto",
-    texto: "Muy contento con el trabajo y los plazos. Profesionales 100%.",
-  },
-  {
-    nombre: "Cristina Cots",
-    texto:
-      "Me han reformado tanto el baño como la cocina. Muy buenos profesionales. Recomendados al 100 %. Gracias por todo Óscar.",
-  },
-  {
-    nombre: "José Manuel Barberán Ramos",
-    texto:
-      "Mi experiencia es positiva. Óscar es un gran profesional y nos aconsejó prácticamente en todo. El baño quedó genial.",
-  },
-];
-
-const faqs = [
-  {
-    q: "¿Realizáis presupuestos gratuitos?",
-    a: "Sí. Visitamos la vivienda o el local sin compromiso y entregamos un presupuesto detallado y por escrito, sin coste.",
-  },
-  {
-    q: "¿Cuánto tarda una reforma integral?",
-    a: "Una vivienda completa suele estar entre 8 y 14 semanas según superficie y acabados. Un baño, entre 1 y 2 semanas; una cocina, entre 2 y 4. El plazo se fija en el presupuesto.",
-  },
-  {
-    q: "¿Trabajáis en toda Valencia?",
-    a: "Sí. Nuestra oficina está en Silla y trabajamos en Valencia capital, Catarroja, Albal, Beniparrell, Picassent, Alcàsser, Paiporta, Massanassa, Sedaví, Torrent, Alzira, Sueca y alrededores.",
-  },
-  {
-    q: "¿Gestionáis todos los gremios?",
-    a: "Sí. Albañilería, fontanería, electricidad, carpintería, pintura y climatización. Tú tratas con un único interlocutor.",
-  },
-  {
-    q: "¿Ofrecéis garantía?",
-    a: "Todos nuestros trabajos e instalaciones cuentan con garantía, además de la garantía propia de los materiales y equipos instalados.",
-  },
-  {
-    q: "¿Puedo seguir viviendo durante la reforma?",
-    a: "En reformas parciales (un baño, una cocina) normalmente sí, protegiendo el resto de la vivienda. En reformas integrales lo habitual es desalojar; lo valoramos contigo antes de empezar.",
-  },
-  {
-    q: "¿Os encargáis de los permisos?",
-    a: "Sí. Tramitamos las licencias y declaraciones responsables necesarias ante el ayuntamiento y la comunidad.",
-  },
-];
-
 function Home() {
-  const { heroData } = Route.useLoaderData();
+  const { heroData, serviciosData, procesoData, opinionesData, faqsData } = Route.useLoaderData();
 
   const eyebrow = heroData?.datos?.eyebrow || "Silla · Valencia · Desde la primera visita";
   const titulo = heroData?.datos?.titulo || "Reformas integrales con plazos que se cumplen";
   const texto = heroData?.datos?.texto || "Somos Sector Reformas y Proyectos, empresa de reformas de viviendas, baños y cocinas en Silla. Coordinamos todos los gremios y te acompañamos de principio a fin.";
+
+  const servicios = serviciosData?.datos?.items || [
+    {
+      icon: Blocks,
+      title: "Reformas integrales",
+      text: "Viviendas, pisos, chalets y casas. Proyecto llave en mano con todos los gremios coordinados.",
+    },
+    {
+      icon: Bath,
+      title: "Reformas de baños",
+      text: "Cambio de bañera por plato de ducha, alicatados, sanitarios, mamparas y mobiliario.",
+    },
+    {
+      icon: ChefHat,
+      title: "Reformas de cocinas",
+      text: "Diseño a medida, mobiliario, encimeras, fontanería y electricidad renovadas.",
+    },
+    {
+      icon: Hammer,
+      title: "Albañilería",
+      text: "Tabiques, enlucidos, suelos y alicatados con acabados limpios y bien rematados.",
+    },
+    {
+      icon: Droplets,
+      title: "Fontanería",
+      text: "Instalaciones, reparaciones y renovación completa de tuberías.",
+    },
+    {
+      icon: Plug,
+      title: "Electricidad",
+      text: "Renovación de instalación, cuadros eléctricos e iluminación LED.",
+    },
+    {
+      icon: Paintbrush,
+      title: "Pintura y suelos",
+      text: "Pintura interior y exterior, porcelánico, laminado y vinílico.",
+    },
+    {
+      icon: PanelsTopLeft,
+      title: "Carpintería",
+      text: "Puertas, armarios a medida y muebles de cocina.",
+    },
+  ];
+
+  const proceso = procesoData?.datos?.items || [
+    {
+      n: "01",
+      title: "Visita sin compromiso",
+      text: "Vamos a tu vivienda o local, tomamos medidas y escuchamos qué necesitas.",
+    },
+    {
+      n: "02",
+      title: "Presupuesto detallado",
+      text: "Partidas claras, materiales concretos y plazos por escrito. Sin sorpresas.",
+    },
+    {
+      n: "03",
+      title: "Planificación y permisos",
+      text: "Organizamos gremios y nos encargamos de la gestión de licencias necesarias.",
+    },
+    {
+      n: "04",
+      title: "Ejecución de la obra",
+      text: "Un responsable de obra y comunicación constante sobre el avance.",
+    },
+    {
+      n: "05",
+      title: "Entrega y garantía",
+      text: "Repaso final contigo, limpieza de obra y garantía sobre el trabajo realizado.",
+    },
+  ];
+
+  const opiniones = opinionesData?.datos?.items || [
+    {
+      nombre: "Alberto",
+      texto: "Muy contento con el trabajo y los plazos. Profesionales 100%.",
+    },
+    {
+      nombre: "Cristina Cots",
+      texto:
+        "Me han reformado tanto el baño como la cocina. Muy buenos profesionales. Recomendados al 100 %. Gracias por todo Óscar.",
+    },
+    {
+      nombre: "José Manuel Barberán Ramos",
+      texto:
+        "Mi experiencia es positiva. Óscar es un gran profesional y nos aconsejó prácticamente en todo. El baño quedó genial.",
+    },
+  ];
+
+  const faqs = faqsData?.datos?.items || [
+    {
+      q: "¿Realizáis presupuestos gratuitos?",
+      a: "Sí. Visitamos la vivienda o el local sin compromiso y entregamos un presupuesto detallado y por escrito, sin coste.",
+    },
+    {
+      q: "¿Cuánto tarda una reforma integral?",
+      a: "Una vivienda completa suele estar entre 8 y 14 semanas según superficie y acabados. Un baño, entre 1 y 2 semanas; una cocina, entre 2 y 4. El plazo se fija en el presupuesto.",
+    },
+    {
+      q: "¿Trabajáis en toda Valencia?",
+      a: "Sí. Nuestra oficina está en Silla y trabajamos en Valencia capital, Catarroja, Albal, Beniparrell, Picassent, Alcàsser, Paiporta, Massanassa, Sedaví, Torrent, Alzira, Sueca y alrededores.",
+    },
+    {
+      q: "¿Gestionáis todos los gremios?",
+      a: "Sí. Albañilería, fontanería, electricidad, carpintería, pintura y climatización. Tú tratas con un único interlocutor.",
+    },
+    {
+      q: "¿Ofrecéis garantía?",
+      a: "Todos nuestros trabajos e instalaciones cuentan con garantía, además de la garantía propia de los materiales y equipos instalados.",
+    },
+    {
+      q: "¿Puedo seguir viviendo durante la reforma?",
+      a: "En reformas parciales (un baño, una cocina) normalmente sí, protegiendo el resto de la vivienda. En reformas integrales lo habitual es desalojar; lo valoramos contigo antes de empezar.",
+    },
+    {
+      q: "¿Os encargáis de los permisos?",
+      a: "Sí. Tramitamos las licencias y declaraciones responsables necesarias ante el ayuntamiento y la comunidad.",
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
