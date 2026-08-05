@@ -80,6 +80,7 @@ export const Route = createFileRoute("/")({
   }),
   loader: async () => {
     const heroData = await getContenido("hero");
+    console.log("heroData:", heroData);
     return { heroData };
   },
   component: Home,
