@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { getContenido } from "@/lib/db";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -77,6 +78,10 @@ export const Route = createFileRoute("/")({
       },
     ],
   }),
+  loader: async () => {
+    const heroData = await getContenido("hero");
+    return { heroData };
+  },
   component: Home,
 });
 
@@ -200,6 +205,12 @@ const faqs = [
 ];
 
 function Home() {
+  const { heroData } = Route.useLoaderData();
+
+  const eyebrow = heroData?.eyebrow || "Silla · Valencia · Desde la primera visita";
+  const titulo = heroData?.titulo || "Reformas integrales con plazos que se cumplen";
+  const texto = heroData?.texto || "Somos Sector Reformas y Proyectos, empresa de reformas de viviendas, baños y cocinas en Silla. Coordinamos todos los gremios y te acompañamos de principio a fin.";
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -208,13 +219,12 @@ function Home() {
         <section className="relative overflow-hidden">
           <div className="container-x grid items-center gap-12 py-16 lg:grid-cols-[1.05fr_1fr] lg:py-24">
             <div>
-              <p className="eyebrow">Silla · Valencia · Desde la primera visita</p>
+              <p className="eyebrow">{eyebrow}</p>
               <h1 className="mt-5 text-balance font-display text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
-                Reformas integrales con plazos que se cumplen
+                {titulo}
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-                Somos Sector Reformas y Proyectos, empresa de reformas de viviendas, baños y cocinas
-                en Silla. Coordinamos todos los gremios y te acompañamos de principio a fin.
+                {texto}
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Link
