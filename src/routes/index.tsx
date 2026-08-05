@@ -79,11 +79,11 @@ export const Route = createFileRoute("/")({
     ],
   }),
   loader: async () => {
-    const heroData = await getContenido("hero");
-    const serviciosData = await getContenido("servicios");
-    const procesoData = await getContenido("proceso");
-    const opinionesData = await getContenido("opiniones");
-    const faqsData = await getContenido("faqs");
+    const heroData = await getContenido({ data: "hero" });
+    const serviciosData = await getContenido({ data: "servicios" });
+    const procesoData = await getContenido({ data: "proceso" });
+    const opinionesData = await getContenido({ data: "opiniones" });
+    const faqsData = await getContenido({ data: "faqs" });
     return { heroData, serviciosData, procesoData, opinionesData, faqsData };
   },
   component: Home,
