@@ -10,14 +10,3 @@ export const getContenido = createServerFn({ method: "GET" })
     `;
     return rows[0] ?? null;
   });
-
-export const updateContenido = createServerFn({ method: "POST" })
-  .validator((data: { clave: string; datos: unknown }) => data)
-  .handler(async ({ data }) => {
-    const sql = neon(process.env.DATABASE_URL!);
-    await sql`
-      UPDATE contenido SET datos = ${JSON.stringify(data.datos)}::jsonb
-      WHERE clave = ${data.clave}
-    `;
-    return { success: true };
-  });
