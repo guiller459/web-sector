@@ -1,14 +1,8 @@
-import { createFileRoute, useRouter, redirect } from "@tanstack/react-router";
-import { loginFn, checkAuth } from "@/lib/auth";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { loginFn } from "@/lib/auth";
 import { useState } from "react";
 
 export const Route = createFileRoute("/admin")({
-  beforeLoad: async () => {
-    const result = await checkAuth();
-    if (result.authenticated) {
-      throw redirect({ to: "/admin/dashboard" });
-    }
-  },
   component: AdminLogin,
 });
 
